@@ -1,0 +1,38 @@
+<!--
+
+To execute, open this directory (where index.html is) and execute in the terminal:
+
+python -m http.server 8000
+
+Then open your browser and set to this URL:
+
+http://127.0.0.1:8000/index.html
+
+ -->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Display a map on a webpage</title>
+<meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+<link href="https://api.mapbox.com/mapbox-gl-js/v3.8.0/mapbox-gl.css" rel="stylesheet">
+<script src="https://api.mapbox.com/mapbox-gl-js/v3.8.0/mapbox-gl.js"></script>
+<style>
+body { margin: 0; padding: 0; }
+#map { position: absolute; top: 0; bottom: 0; width: 100%; }
+</style>
+</head>
+<body>
+<div id="map"></div>
+<script>
+	mapboxgl.accessToken = 'pk.eyJ1IjoidGF5c2FhYmluYWRlciIsImEiOiJjbTJ4MTZ2dHMwMDQxMmpyNHFwMHlsaDlxIn0.Qhai-MjtxWtJ1Bg1G4rkYw';
+    const map = new mapboxgl.Map({
+        style: 'mapbox://styles/taysaabinader/cm434iwew00zh01sd4tmv0rxd',
+        container: 'map', // container ID
+        //center: [-74.5, 40], // starting position [lng, lat]. Note that lat must be set between -90 and 90
+        zoom: 1.5 // starting zoom
+    });
+</script>
+
+</body>
+</html>
