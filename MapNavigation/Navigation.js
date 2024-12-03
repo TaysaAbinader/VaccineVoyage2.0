@@ -7,6 +7,10 @@ const map = new mapboxgl.Map({
   zoom: 1.5 // starting zoom
   });
 
-const countries:
+const planeMarker = new mapboxgl.Marker({
+      element: createPlaneIcon(),
+      anchor: 'center'
+    }).setLngLat([0, 0]) // Start position (center of map)
+      .addTo(map);
 
 
