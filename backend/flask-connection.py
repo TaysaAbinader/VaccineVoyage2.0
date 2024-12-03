@@ -1,5 +1,5 @@
 import json
-
+from databaseconnection import connection
 from flask import Flask,  Response
 from flask_cors import CORS
 from classes.class_game import Game
@@ -144,6 +144,23 @@ def point_operation(game_info,operation,points_dif):
         }
         http_response = Response(response=json.dumps(response, indent=2), status=400, mimetype='application/json')
         return http_response
+
+@app.route('/fetchcoordinates/<country>')
+def fetchcoordinates (country):
+    mysql = f'select latitude, longitude from countries where name ="{country}"'
+    cursor = connection.cursor()
+    cursor.execute(mysql)
+    result = cursor.fetchall()
+    if cursor.rowcount > 0:
+        for row in result:
+            response = {
+                "name": country,
+                "latitude": row[0],
+                "longitude": row[1]
+            }
+        json_response = json.dumps(response)
+        http_response = Response(json_response, status= 200, mimetype="application/json")
+
 @app.errorhandler(404)
 def not_found(error):
     response = {
