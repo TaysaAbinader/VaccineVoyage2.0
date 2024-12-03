@@ -1,8 +1,18 @@
 export function setData(game) {
-  sessionStorage.setItem("game", JSON.stringify(game));
+
+  try{
+    sessionStorage.setItem('game', JSON.stringify(game));
+  }catch(error) {
+    console.log(error);
+  }
 }
 
 export function getData() {
-  const gameData = sessionStorage.getItem("game");
-return gameData ? JSON.parse(gameData) : null
+  try {
+    const gameData = sessionStorage.getItem("game");
+    return gameData ? JSON.parse(gameData) : null;
+  } catch (error) {
+    console.error("Error getting data from session storage:", error);
+    return null;
+  }
   }
