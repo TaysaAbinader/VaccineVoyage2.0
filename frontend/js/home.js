@@ -1,4 +1,5 @@
-import {setData} from 'session.js';
+import {setData} from './session.js';
+let port = 8000
 
 document.querySelector("button").addEventListener("click", async function() {
   let name = prompt("Welcome, what's the name of the virus?")
@@ -10,7 +11,7 @@ document.querySelector("button").addEventListener("click", async function() {
 
 async function gameStart(diseaseName) {
   try {
-    const gameData = await fetch (`http://127.0.0.1:5000/game_start/${diseaseName}`, {
+    const gameData = await fetch (`http://127.0.0.1:${port}/game_start/${diseaseName}`, {
       method: 'GET'})
     const jsonGameData = await gameData.json()
     console.log(jsonGameData)

@@ -73,17 +73,17 @@ def answer_is_correct(game_info,level,guess):
     try:
         class_game = game_info[0]
         if guess.upper() == game_info[level]["name"]:
-            class_game.points += point_level(game_info,level)
+            #class_game.points += point_level(game_info,level)
             class_game.current_level += 1
             response = {
-                "response": "Correct, let's move to the next level",
-                "points": class_game.points,
+                "response": "Correct",
+
             }
         else:
-            class_game.points += point_level(game_info, level)
+            #class_game.points += point_level(game_info, level)
             response = {
                 "response": "Incorrect",
-                "points": class_game.points,
+
             }
         json_response = json.dumps(response)
         http_response = Response(json_response, status = 200,mimetype='application/json')
@@ -108,7 +108,7 @@ def point_level(game_info,level):
 def multiple_choice(game_info,level):
     try:
         game_class = game_info[0]
-        game_class.points += point_level(game_info, level)
+        #game_class.points += point_level(game_info, level)
         response = [game_class["points"]]
         for choice in game_class.multiple_choice(game_info[level]["name"]):
             response.append(choice)
@@ -155,5 +155,5 @@ def not_found(error):
     return http_response
 
 if __name__ == '__main__':
-    app.run(host='127.0.0.1', port=5000, debug=True)
+    app.run(host='127.0.0.1', port=8000, debug=True)
 
