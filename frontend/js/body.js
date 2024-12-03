@@ -2,7 +2,7 @@ import {getData} from './session.js';
 const game = getData();
 let hint_used = 1
 console.log(game)
-game[0]["countries"][level -1]["latitude"]
+game[0]["countries"][level -1]
 
 async function guess() {
   let guess = prompt("What's your guess?")
