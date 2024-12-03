@@ -1,9 +1,11 @@
+
 .sour-gummy- {
-    font-family: "Sour Gummy", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 100;
-    font-style: normal;
-    font-variation-settings: "wdth" 100;
+  font-family: "Sour Gummy", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 100;
+  font-style: normal;
+  font-variation-settings:
+    "wdth" 100;
 }
 body {
     font-family: Sour Gummy, sans-serif;
@@ -19,11 +21,10 @@ body {
 }
 h1{
     color: #FFCA3A;
-    font-size: 8rem;
+    font-size: 7rem;
     font-weight: bold;
     letter-spacing: 5px;
     line-height: 7rem;
-
 }
 button{
     font-size: 1.75rem;
