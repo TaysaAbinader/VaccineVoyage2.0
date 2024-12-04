@@ -1,27 +1,37 @@
 import {getData} from './session.js';
+const port = 8000
 const game = getData();
 let hint_used = 1
 console.log(game)
-game[0]["countries"][level -1]
+
+const guessBtn = document.querySelector("#button4")
+guessBtn.addEventListener("click", evt => {
+  guess()
+})
 
 async function guess() {
   let guess = prompt("What's your guess?")
-  const checkAnswer = await fetch (`http://127.0.0.1:${port}/game_start/${game}/${game["current level"]}/${guess}`)
+  let currentLevel = game[0]["current level"]
+  let currentCountry = game[0]["countries"][currentLevel-1]["name"]
+  const checkAnswer = await fetch (`http://127.0.0.1:${port}/answer_is_correct/${currentCountry}/${guess}`)
   const jsonAnswer  = await checkAnswer.json();
   if(jsonAnswer.response === "Correct") {
+    game[0]["current level"] ++
     if (hint_used <= 6) {
-    await pointCalculation("plus", "hint")}
-    else if (hint_used >6) {
-      await pointCalculation("plus", "mc")
-    }
+      if (hint_used === 1) {
+        await pointCalculation("plus","mc")
+        console.log(game[0].points, game[0]["current_level"])
+      }
+      else if (hint_used > 1){
+    await pointCalculation("plus", "hint")}}
   } else if (jsonAnswer.response === "Incorrect") {
-    if (hint_used <= 6) {
+    if (hint_used > 6) {
     await pointCalculation("minus", "hint")}
     else if (hint_used >6) {
       await pointCalculation("minus", "mc")
     }
   }
-  alert(`${jsonAnswer.response}, now you have ${jsonAnswer.points} points`);
+  alert(`${jsonAnswer.response}`);
 }
 async function newHint(hint_used){
   let point = game["points"]
@@ -54,12 +64,12 @@ async function pointCalculation(operation,type) {
     rate = 15}
 
   if (operation === "plus") {
-    game.points = (Math.floor(game.points) + Math.floor(game["current level"]*rate)).toString()
+    game[0].points = (Math.floor(game[0].points) + Math.floor(game[0]["current level"]*rate)).toString()
   }else if (operation === "minus") {
-    game.points = (Math.floor(game.points) - Math.floor(game["current level"]*rate)).toString()
+    game[0].points = (Math.floor(game[0].points) - Math.floor(game[0]["current level"]*rate)).toString()
   }
   document.querySelector("#points").innerHTML = game.points
-  return game.points
+  return game[0].points
 }
 async function miniGameRandomize(){
   let game=['hangman','trivia'];
