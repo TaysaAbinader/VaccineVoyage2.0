@@ -41,7 +41,7 @@ let counter = 0;
 
 map.on('load', () => {
   map.loadImage(
-    'https://img.icons8.com/color/96/000000/airplane-mode-on.png',
+    'https://i.postimg.cc/bNcXq4Dv/airplane-mode-on.png',
     (error, image) => {
       if (error) throw error;
       map.addImage('custom-marker', image);
