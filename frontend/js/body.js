@@ -71,6 +71,11 @@ async function pointCalculation(operation,type) {
   document.querySelector("#points").innerHTML = game.points
   return game[0].points
 }
+async function miniGameRandomize(){
+  let game=['hangman','trivia'];
+  let randomizedGame=Math.floor(Math.random()*game.length);
+  return game[randomizedGame]
+}
 
 
 function quit() {
