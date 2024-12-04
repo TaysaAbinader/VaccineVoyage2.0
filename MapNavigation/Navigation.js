@@ -80,6 +80,11 @@ const planeMarkerOrigin = [25.748151, 61.92411]
                   if (error) throw error;
                   map.addImage('custom-marker', image)});
 
+      map.addSource('route', {
+    'type': 'geojson',
+    'data': route
+  });
+
       map.addSource('point', {
         'type': 'geojson',
         'data': point
@@ -139,7 +144,7 @@ const planeMarkerOrigin = [25.748151, 61.92411]
         if (running) {
           void 0;
         } else {
-          point.features[0].geometry.coordinates = origin;
+          point.features[0].geometry.coordinates = planeMarkerOrigin;
           map.getSource('point').setData(point);
           counter = 0;
           animate(counter);
