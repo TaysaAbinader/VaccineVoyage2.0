@@ -1,22 +1,45 @@
 import {getData} from './session.js';
 const port = 8000
 const game = getData();
-let hint_used = 1
+game[0]["hint used"] = 1
 console.log(game)
 
 const guessBtn = document.querySelector("#button4")
 guessBtn.addEventListener("click", evt => {
   guess()
+
+})
+
+const hintBtn = document.querySelector("#button5")
+hintBtn.addEventListener("click", evt => {
+  console.log(game[0]["hint used"])
+  newHint(game[0]["hint used"],game[0]["current level"])
 })
 
 async function guess() {
+  let hint_used = game[0]["hint used"]
   let guess = prompt("What's your guess?")
   let currentLevel = game[0]["current level"]
   let currentCountry = game[0]["countries"][currentLevel-1]["name"]
   const checkAnswer = await fetch (`http://127.0.0.1:${port}/answer_is_correct/${currentCountry}/${guess}`)
   const jsonAnswer  = await checkAnswer.json();
+  alert(`${jsonAnswer.response}`);
   if(jsonAnswer.response === "Correct") {
     game[0]["current level"] ++
+    document.querySelector("#hintBox ul").innerHTML = ""
+    let levelBlock = document.getElementsByClassName("level_count")
+    let level = document.querySelector("#level")
+    level.innerHTML = `Level ${currentLevel+1}/7`
+    if (currentLevel !== 7){
+      levelBlock[currentLevel-1].style.fill = "#8AC926"
+    }
+    else {
+      alert("You win")
+    }
+      if (hintBtn.disabled === true) {
+        hintBtn.disabled = false
+        hintBtn.style.backgroundColor = "#FF595E"
+  }
     if (hint_used <= 6) {
       if (hint_used === 1) {
         await pointCalculation("plus","mc")
@@ -25,32 +48,37 @@ async function guess() {
       else if (hint_used > 1){
     await pointCalculation("plus", "hint")}}
   } else if (jsonAnswer.response === "Incorrect") {
-    if (hint_used > 6) {
+    if (hint_used <= 6) {
     await pointCalculation("minus", "hint")}
     else if (hint_used >6) {
       await pointCalculation("minus", "mc")
     }
   }
-  alert(`${jsonAnswer.response}`);
+
 }
-async function newHint(hint_used){
-  let point = game["points"]
-  if (point >= 0){
+async function newHint(hint_used,level){
+  let country = game[0]["countries"][level-1]
+  if (game[0].points >= 0){
   if (hint_used <= 6) {
-    let hint = await fetch (`http://127.0.0.1:${port}/get_hint/${game}/${game["current level"]}`)
-    const jsonHint = await hint.json()
+    let hint = country["hints"][hint_used-1]
     let addHint = document.createElement("li")
-    addHint.innerHTML = jsonHint[hint_used]
-    document.querySelector("#hintBox").appendChild(addHint)
+    addHint.innerHTML = hint
+    document.querySelector("#hintBox ul").appendChild(addHint)
     await pointCalculation("minus", "hints")
-    hint_used ++
+    game[0]["hint used"] ++
+    return game[0]["hint used"]
   }else {
-    let hint = await fetch (`http://127.0.0.1:${port}/multiple_choice/${game}/${game["current level"]}`)
+    let hint = await fetch (`http://127.0.0.1:${port}/multiple_choice/${country.name}`)
     let jsonHint = await hint.json()
+    console.log(jsonHint)
     let addHint = document.createElement("li")
-    addHint.innerHTML = jsonHint
-    document.querySelector("#hintBox").appendChild(addHint)
+    addHint.innerHTML = `The country is among: ${jsonHint}`
+    document.querySelector("#hintBox ul").appendChild(addHint)
     await pointCalculation("minus", "mc")
+    hintBtn.disabled = true
+    hintBtn.style.backgroundColor = "grey"
+    game[0]["hint used"] = 1
+    return game[0]["hint used"]
     }}
   else {
     quit()
@@ -68,7 +96,7 @@ async function pointCalculation(operation,type) {
   }else if (operation === "minus") {
     game[0].points = (Math.floor(game[0].points) - Math.floor(game[0]["current level"]*rate)).toString()
   }
-  document.querySelector("#points").innerHTML = game.points
+  document.querySelector("#points").innerHTML = game[0].points
   return game[0].points
 }
 async function miniGameRandomize(){
@@ -76,6 +104,11 @@ async function miniGameRandomize(){
   let randomizedGame=Math.floor(Math.random()*game.length);
   return game[randomizedGame]
 }
+
+let homeBtn = document.querySelector("#button1")
+homeBtn.addEventListener("click", evt => {
+  location.href = "home2.html"
+})
 
 
 function quit() {
