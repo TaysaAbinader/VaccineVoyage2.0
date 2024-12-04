@@ -1,7 +1,7 @@
 import {setData} from './session.js';
 let port = 8000
 
-document.querySelector("button").addEventListener("click", async function() {
+document.querySelector("#start_button").addEventListener("click", async function() {
   let name = prompt("Welcome, what's the name of the virus?")
   const game = await gameStart(name)
   setData(game)
@@ -9,6 +9,9 @@ document.querySelector("button").addEventListener("click", async function() {
   return game
 })
 
+document.querySelector("#tut_button").addEventListener("click", evt => {
+  location.href="../html/tutorial.html"
+})
 async function gameStart(diseaseName) {
   try {
     const gameData = await fetch (`http://127.0.0.1:${port}/game_start/${diseaseName}`, {
