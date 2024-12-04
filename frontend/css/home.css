@@ -1,0 +1,61 @@
+
+header{
+    background-color: #373F51 ;
+    color: #FFCA3A ;
+    font-family: "Chela One","Arial","SansSerif";
+}
+body{
+
+    background-color: #373F51 ;
+    font-family: "Chela One","Arial","SansSerif";
+}
+main{
+    display:flex;
+}
+section{
+    width:70%;
+    height:85%;
+    #map {
+    position: absolute; top: 4rem; bottom: 3rem; width:70%; height:78%;
+    border-radius: 1rem;
+}
+}
+article{
+    position:absolute;
+    background-color:#FFCA3A;
+    height:22%;
+    border-radius: 16px;
+    bottom: 5rem;
+}
+aside{
+    width:30%;
+    height:70%;
+    color:white;
+}
+
+button {
+    color:white;
+    font-size: medium;
+    width:120px;
+    height:39px;
+    background-color: #FF595E;
+    border-radius: 10px;
+    font-family: "Chela One", "Arial", "SansSerif";
+}
+footer{
+
+    font-family: "Chela One","Arial","SansSerif";}
+ul{display:flex;
+    text-decoration:none ;
+    list-style-type: none;
+
+    margin: 0;
+}
+    .hintsFlow{
+        justify-content: space-evenly;
+        display:inline-block;
+        float:right;
+        color:white;
+    }
+
+
