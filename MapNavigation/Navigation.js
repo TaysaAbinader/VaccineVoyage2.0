@@ -66,7 +66,7 @@ map.on('load', () => {
     layout: {
       'icon-image': 'custom-marker',
       'icon-size': 0.5,
-      'icon-rotate':['get', 'bearing'],
+      'icon-rotate':['+', ['get', 'bearing'], -90],
       'icon-rotation-alignment': 'map',
       'icon-allow-overlap': true,
       'icon-ignore-placement': true,
@@ -121,5 +121,5 @@ map.on('load', () => {
     }
   }
 
-  navigate('Lebanon');
+  navigate('Canada');
 });
