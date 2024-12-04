@@ -5,8 +5,50 @@
     <title>Game Body</title>
     <script type="module" src="../js/session.js"></script>
     <script type="module" src ="../js/body.js" defer></script>
+    <link href ="../css/home.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+    <link href="https://api.mapbox.com/mapbox-gl-js/v3.8.0/mapbox-gl.css" rel="stylesheet">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v3.8.0/mapbox-gl.js"></script>
 </head>
+<header>
+  <h1>Vaccine Voyage</h1>
+</header>
 <body>
-
-</body>
+<main>
+    <section>
+    <div id="map"></div>
+    <script src="Navigation.js"></script>
+    <article>
+        <h1>Hints 3/1</h1>
+        <p>This is the space where you can view the hints to guess the<br> country</p>
+        <button id="button4">Guess</button>
+        <button id="button5">New hint</button>
+    </article>
+    </section>
+    <aside>
+        <figure>
+            #this is the figure of game status
+            <img src="https://via.placeholder.com/400X300" alt="some description">
+        </figure>
+        <figure>
+            <h2>Run out of points?<br> Try a Mini Game</h2>
+            <button id="button3">Play minigame</button>
+        </figure>
+    </aside>
+</main></body>
+<footer>
+    <nav>
+        <ul>
+        <li>
+            <button id="button1">Home</button>
+            <button id="button2">Tutorial</button>
+        </li></ul>
+    </nav>
+    <div class="hintsFlow">
+        <h1>hint used of this level</h1>
+    </div>
+</footer>
 </html>

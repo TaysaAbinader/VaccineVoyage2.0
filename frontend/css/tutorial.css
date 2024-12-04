@@ -1,0 +1,77 @@
+
+.sour-gummy- {
+  font-family: "Sour Gummy", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 100;
+  font-style: normal;
+  font-variation-settings:
+    "wdth" 100;
+}
+body{
+    font-family: Sour Gummy, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color:#363f52;
+}
+.container{
+    margin: 0 auto;
+}
+header{
+    text-align: center;
+    margin-bottom: 20px;
+h1{
+    color: #FFCA3A;
+    font-size: 50px;
+    margin-bottom: -2rem;
+}
+p{
+    color: #8AC926;
+    font-size: 25px;
+}
+}
+
+main{
+    margin: auto;
+    text-align: center;
+    border-radius: 20px;
+    cursor: pointer;
+}
+main h3{
+    font-size: 35px;
+    color: #8AC926;
+    margin-bottom: -4rem;
+
+}
+
+h2{
+    width: 100%;
+    margin-top: 0;
+    padding-top: 2rem;
+}
+section {
+    background-color: transparent;
+    text-align: center;
+    padding: 1rem 2rem;
+    display:flex;
+    flex-wrap: wrap;
+    align-content: center;
+    align-items: center;
+    margin-top: 5rem;
+    box-sizing: border-box;
+    border-radius: 40px;
+    cursor: pointer;
+    grid-template-columns: repeat(4, 3fr); /* Tạo 3 cột có kích thước bằng nhau */
+    gap: 20px;
+
+}
+article {
+    background-color: #FFCA3A;
+    width: 23%;
+    height: 20rem;
+    margin: 0;
+    padding: 0 0 0 0;
+    box-sizing: border-box;
+    border-radius: 30px;
+}
+
+
