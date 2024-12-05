@@ -1,70 +1,40 @@
 
-
-header{
-    background-color: #373F51 ;
-    color: #FFCA3A ;
-    font-family: "Sour Gummy","Arial","SansSerif";
+.sour-gummy- {
+  font-family: "Sour Gummy", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 100;
+  font-style: normal;
+  font-variation-settings:
+    "wdth" 100;
 }
-body{
-
-    background-color: #373F51 ;
-    font-family: "Sour Gummy","Arial","SansSerif";
+body {
+    font-family: Sour Gummy, sans-serif;
+    background-color: #363f52;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    margin-top: 5%;
 }
-main{
-    display:flex;
-    height:600px;
+.container{
+    text-align: center;
 }
-section{
-    width:70%;
-    height:70%;
-    #map {
-    position: absolute; top: 4rem; bottom: 3rem; width:70%; height:70%;
-    border-radius: 1rem;
+h1{
+    color: #FFCA3A;
+    font-size: 7rem;
+    font-weight: bold;
+    letter-spacing: 5px;
+    line-height: 7rem;
 }
-}
-article{
-    position:absolute;
-
-    background-color:#FFCA3A;
-    height:22%;
-    width:70%;
-    border-radius: 16px;
-    bottom:0;
-    button{display:flex;
-        float:right;
-        top:30px;
-        flex-wrap: wrap;
-   }
-}
-aside{
-    width:30%;
-    height:70%;
-    color:white;
-}
-
-button {
-    color:white;
-    font-size: medium;
-    width:125px;
-    height:39px;
-    background-color: #FF595E;
+button{
+    font-size: 1.75rem;
+    font-family: Sour Gummy, sans-serif;
+    background-color: #FF6B6B;
+    color: white;
+    padding: 1rem 2rem;
+    border: medium outset black;
     border-radius: 10px;
-    font-family: "Sour Gummy", "Arial", "SansSerif";
+    margin: 1rem;
+    cursor: pointer;
 }
-footer{
-    position: absolute;
-    font-family: "Sour Gummy","Arial","SansSerif";}
-ul{display:flex;
-    text-decoration:none ;
-    list-style-type: none;
-
-    margin: 0;
-}
-    .hintsFlow{
-        justify-content: space-evenly;
-        display:inline-block;
-        float:right;
-        color:white;
-
-    }
 

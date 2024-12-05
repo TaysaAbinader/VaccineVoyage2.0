@@ -3,9 +3,25 @@ from databaseconnection import connection
 from flask import Flask,  Response
 from flask_cors import CORS
 from classes.class_game import Game
+import random
 
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "http://localhost:63342"}})
+
+def point_level(game_info,level):
+    class_game = game_info[0]
+    point_difference = class_game.points_per_level(level)
+    return point_difference
+
+def randomize_countries(countries):
+    new_list = countries
+    if len(new_list) > 4:
+        random.shuffle(new_list)
+        result = new_list[:3]
+    if len(new_list) <= 4:
+        random.shuffle(new_list)
+        result = new_list
+    return result
 
 @app.route('/game_start/<disease_name>')
 def game_start(disease_name):
@@ -41,13 +57,10 @@ def game_start(disease_name):
         http_response = Response(response=json.dumps(response, indent=2), status=400, mimetype='application/json')
         return http_response
 
-@app.route('/get_hint/<game_info>/<level>', endpoint='get_hint')
-def point_level(game_info,level):
-    class_game = game_info[0]
-    point_difference = class_game.points_per_level(level)
-    return point_difference
 
-def get_hint(game_info,level):
+
+@app.route('/get_hint/<country>/<level>', endpoint='get_hint')
+def get_hint(country,level):
     try:
         this_level = game_info["countries"][level-1]
         hint_list = this_level["hints"]
@@ -63,27 +76,16 @@ def get_hint(game_info,level):
         http_response = Response(response=json.dumps(response, indent=2), status=400, mimetype='application/json')
         return http_response
 
-@app.route('/answer_is_correct/<game_info>/<level>/<guess>', endpoint='answer_is_correct')
-def point_level(game_info,level):
-    class_game = game_info[0]
-    point_difference = class_game.points_per_level(level)
-    return point_difference
-
-def answer_is_correct(game_info,level,guess):
+@app.route('/answer_is_correct/<country>/<guess>', endpoint='answer_is_correct')
+def answer_is_correct(country,guess):
     try:
-        class_game = game_info[0]
-        if guess.upper() == game_info[level]["name"]:
-            #class_game.points += point_level(game_info,level)
-            class_game.current_level += 1
+        if guess.upper() == country:
             response = {
                 "response": "Correct",
-
             }
         else:
-            #class_game.points += point_level(game_info, level)
             response = {
                 "response": "Incorrect",
-
             }
         json_response = json.dumps(response)
         http_response = Response(json_response, status = 200,mimetype='application/json')
@@ -99,19 +101,22 @@ def answer_is_correct(game_info,level,guess):
 
 
 
-@app.route('/multiple_choice/<game_info>/<level>', endpoint='multiple_choice')
-def point_level(game_info,level):
-    class_game = game_info[0]
-    point_difference = class_game.points_per_level(level)
-    return point_difference
-
-def multiple_choice(game_info,level):
+@app.route('/multiple_choice/<country>', endpoint='multiple_choice')
+def multiple_choice(country):
     try:
-        game_class = game_info[0]
-        #game_class.points += point_level(game_info, level)
-        response = [game_class["points"]]
-        for choice in game_class.multiple_choice(game_info[level]["name"]):
-            response.append(choice)
+        multi_sql = f"select name from countries where name != '{country}';"
+        listed_countries = []
+        multiple_options = [country]
+        cursor_count = connection.cursor()
+        cursor_count.execute(multi_sql)
+        result = cursor_count.fetchall()
+        if cursor_count.rowcount > 0:
+            for row in result:
+                listed_countries.append(row[0])
+            listed_countries1 = randomize_countries(listed_countries)
+            for i in listed_countries1:
+                multiple_options.append(i)
+        response = randomize_countries(multiple_options)
         json_response = json.dumps(response)
         http_response = Response(json_response, status = 200,mimetype='application/json')
         return http_response
@@ -147,7 +152,7 @@ def point_operation(game_info,operation,points_dif):
 
 @app.route('/fetchcoordinates/<country>')
 def fetchcoordinates (country):
-    mysql = f'select latitude, longitude from countries where name ="{country}"'
+    mysql = f'select latitude, longitude from countries where name ="{country.upper()}"'
     cursor = connection.cursor()
     cursor.execute(mysql)
     result = cursor.fetchall()
@@ -160,6 +165,7 @@ def fetchcoordinates (country):
             }
         json_response = json.dumps(response)
         http_response = Response(json_response, status= 200, mimetype="application/json")
+        return http_response
 
 @app.errorhandler(404)
 def not_found(error):
