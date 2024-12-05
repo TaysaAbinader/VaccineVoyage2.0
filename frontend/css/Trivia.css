@@ -1,0 +1,40 @@
+body{
+    background-color: #363f52;
+h1{
+    font-family: "Sour Gummy", "Arial", "SansSerif";
+    color: #FFCA3A;
+    font-size: 60px;
+    justify-content: center;
+    align-items: center;
+}
+}
+button#triviastart{
+    font-family: "Sour Gummy", "Arial", "SansSerif";
+    color: white;
+    background-color: #FF595E;
+    font-size: 20px;
+}
+dialog#gamedialog{
+    font-family: "Sour Gummy", "Arial", "SansSerif";
+    border-radius: 30px;
+    color: white;
+    background-color: #373F51;
+    border: 3px outset white;
+
+}
+div#options{
+    margin: auto;
+    justify-content: center;
+    align-items: center;
+button{
+    font-family: "Sour Gummy", "Arial", "SansSerif";
+    justify-content: center;
+    display: inline-block;
+    box-sizing: border-box;
+    border-radius: 20px;
+    width: 20%;
+    margin: 10px;
+    padding: 5px 5px 5px 5px ;
+    height: 65px;
+}
+}
