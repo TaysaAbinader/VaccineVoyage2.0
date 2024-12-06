@@ -1,5 +1,4 @@
 
-
 header{
     margin-left : 4rem;
     margin-bottom: 1rem;
@@ -11,6 +10,12 @@ body{
 
     background-color: #373F51 ;
     font-family: "Sour Gummy","Arial","SansSerif";
+}
+#virus_name {
+    font-size: 3rem;
+    color: #FFCA3A;
+    font-weight: lighter;
+    margin: 0;
 }
 main{
     display:flex;
@@ -102,7 +107,7 @@ button:hover{
 
 }
 #minigame{
-    margin-top: 6.5rem;
+    margin-top: 5rem;
 }
 
 
