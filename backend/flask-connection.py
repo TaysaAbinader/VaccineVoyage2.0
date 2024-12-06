@@ -27,7 +27,6 @@ def game_start(disease_name):
         game.ingredient_country()
         game_info = {
             "disease name": game.disease_name,
-            "first infected": game.first_country,
             "points": game.points,
             "countries": [],
             "current level": game.current_level,

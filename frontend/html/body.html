@@ -18,7 +18,19 @@
 <main>
     <section>
     <div id="map"></div>
-    <script src="../js/Navigation-display.js"></script>
+    <script type ="module" src="../../MapNavigation/Navigation.js"></script>
+        <script src="https://unpkg.com/@turf/turf@6/turf.min.js"></script>
+        <style>
+    #map { position: absolute; top: 0; bottom: 0; width: 100%; }
+    .marker {
+          background-image: url('https://docs.mapbox.com/demos/custom-markers-gl-js/mapbox-icon.png');
+          background-size: cover;
+          width: 50px;
+          height: 50px;
+          border-radius: 50%;
+          cursor: pointer;
+        }
+    </style>
     <article id ="hintBox">
         <h1 id = "level">Level 1/7</h1>
         <ul></ul>
@@ -30,7 +42,7 @@
         <figure>
 
             <h4>Vaccine(s) found</h4>
-            <svg width ="120" height = "20">
+            <svg width ="140" height = "20">
                 <rect class="level_count" x="0" y ="0" height="15" width ="15" fill ="#FFCA3A"/>
                 <rect class="level_count" x="20" y ="0" height="15" width ="15" fill ="#FFCA3A"/>
                 <rect class="level_count" x="40" y ="0" height="15" width ="15" fill ="#FFCA3A"/>
@@ -73,11 +85,11 @@
 </body>
 <footer>
     <nav>
-        <ul>
-        <li>
-            <button id="button1">Home</button>
-            <button id="button2">Tutorial</button>
-        </li></ul>
+        <!--
+        <button id="button1">Home</button>
+            <button id="button2">Tutorial</button> -->
+            <button id="quit">Quit</button>
+
     </nav>
 
 </footer>

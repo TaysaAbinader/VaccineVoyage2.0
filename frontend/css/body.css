@@ -18,7 +18,7 @@ main{
 }
 section{
     width:80%;
-    height:70%;
+    height:100%;
     #map {
     position: absolute; right: 2rem; left: 4rem; top:1.5rem; width:70%; height:60%;
     border-radius: 1rem;
@@ -64,6 +64,7 @@ ul li {
     width: 100%;
     font-weight: normal;
     margin: 0;
+    font-size: 1.5rem;
 
 }
 
@@ -144,14 +145,20 @@ ul{display:flex;
 
 }
 
-#button1, #button2 {
+#button1, #button2, #quit {
+    font-size: 1.2rem;
+    width: auto;
     z-index: 2;
     position:fixed;
     bottom:-0.4rem;
-    right: 5.5rem;
+    right: 3.9rem;
+    background-color: #008DD5;
 }
 #button1 {
-    right: 13.5rem;
+    right: 9rem;
+}
+#quit {
+    right: 0.5rem;
 }
 /*
 dialog[closed] {
@@ -240,5 +247,16 @@ article h3 {
     }
 
 }
-
+#game_over[open]{
+    border-radius: 15px;
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #363f52;
+    h1{
+        color: white;
+    }
+}
 
