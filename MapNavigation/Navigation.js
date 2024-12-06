@@ -3,7 +3,7 @@ mapboxgl.accessToken = 'pk.eyJ1IjoidGF5c2FhYmluYWRlciIsImEiOiJjbTJ4MTZ2dHMwMDQxM
 const map = new mapboxgl.Map({
   container: 'map',
   style: 'mapbox://styles/taysaabinader/cm434iwew00zh01sd4tmv0rxd',
-  center: [25.748151, 61.92411],
+  center: [0, 0],
   zoom: 1.5,
   projection: 'mercator', // Keep the map flat
 });
@@ -11,7 +11,7 @@ const map = new mapboxgl.Map({
 let planeMarkerOrigin = [25.748151, 61.92411];
 let planeMarkerDestination = [25.748151, 61.92411];
 
-const route = {
+const route = { //geojson
   type: 'FeatureCollection',
   features: [
     {
@@ -263,6 +263,7 @@ map.on('style.load', () => {
     await navigate(countryName); // Ensure navigate function is called here
   }
 
+//Test function
   function gameLogic() {
     setTimeout(() => onCorrectCountryFound('Brazil'), 2000);
     setTimeout(() => onCorrectCountryFound('India'), 5000);
