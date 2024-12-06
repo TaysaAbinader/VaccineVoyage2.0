@@ -153,4 +153,92 @@ ul{display:flex;
 #button1 {
     right: 13.5rem;
 }
+/*
+dialog[closed] {
+  position: fixed;
+  transition: all 0.5s ease-in-out;
+  opacity: 0;
+}
+
+dialog[open] {
+  opacity: 1;
+}
+*/
+dialog::backdrop {
+  background: rgb(0 0 0 / 0.8);
+}
+
+
+#hangman[open] {
+    border-radius: 15px;
+    width: 60%;
+    height: 60%;
+    background-color: #FFCA3A;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    padding: 3rem;
+    flex-direction: column;
+
+    button {
+        width: auto;
+        justify-content: center;
+        margin: 1rem;
+    }
+    article {
+        position: relative;
+        width: 100%;
+        margin:0;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+    }
+
+
+
+
+}
+#alphabet {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+  }
+
+#alphabet button {
+    margin: 5px;
+    position: relative;
+
+  }
+#alphabet p {
+    width: 100%;
+}
+#alphabet div {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+article h3 {
+    width: 2rem;
+}
+
+#trivia[open] {
+    border-radius: 15px;
+    width: 60%;
+    height: 60%;
+    background-color: #FFCA3A;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    button {
+        width: 100%;
+        margin-bottom: 2rem;
+    }
+
+}
+
 
