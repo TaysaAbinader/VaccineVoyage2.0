@@ -3,10 +3,14 @@ import {Hangman, preGame} from '../../TriviaMinigame/hangman_game.js';
 import {triviaQuestions} from '../../TriviaMinigame/Minigame.js';
 import {onCorrectCountryFound} from "../../MapNavigation/Navigation.js"
 
+
+
 const port = 8000
 const game = getData();
 game[0]["hint used"] = 1
 console.log(game)
+let virusName = document.getElementById('virus_name');
+virusName.innerHTML = game[0]["disease name"];
 const firstCountry = game[0]["countries"][0]
 let hint = firstCountry["hints"][0]
 let addHint = document.createElement("li")
@@ -123,10 +127,17 @@ async function guess() {
   alert(`${jsonAnswer.response}`);
   if(jsonAnswer.response === "Correct") {
     await onCorrectCountryFound(currentCountry)
+    if (currentLevel === 7) {
+      let levelBlock = document.getElementsByClassName("level_count")
+      levelBlock[currentLevel-1].style.fill = "#8AC926"
+      alert("You win")
+      quit()
+    }
     game[0]["hint used"] = 2
     game[0]["current level"] = game[0]["current level"] +1
     currentLevel = game[0]["current level"]
     console.log(game[0]["current level"])
+
     document.querySelector("#hintBox ul").innerHTML = ""
 
     let tracker = document.querySelectorAll(".used")
@@ -137,17 +148,14 @@ async function guess() {
     let levelBlock = document.getElementsByClassName("level_count")
     let level = document.querySelector("#level")
     level.innerHTML = `Level ${currentLevel}/7`
-    if (currentLevel <= 7){
-      levelBlock[currentLevel-1].style.fill = "#8AC926"
+    if (currentLevel < 8){
+      levelBlock[currentLevel-2].style.fill = "#8AC926"
        let nextHint = game[0]["countries"][currentLevel -1]["hints"][0]
       let addHint = document.createElement("li")
       addHint.innerHTML = nextHint
       document.querySelector("#hintBox ul").appendChild(addHint)
     }
-    else {
-      levelBlock[currentLevel-1].style.fill = "#8AC926"
-      alert("You win")
-    }
+
       if (hintBtn.disabled === true) {
         hintBtn.disabled = false
         hintBtn.style.backgroundColor = "#FF595E"
@@ -168,7 +176,7 @@ async function guess() {
     }
     }
     else {
-      alert("Oh no, you ran out of all points. Let's try again")
+      alert("Oh no, you ran out of all points. You can play again")
       quit()
     }
   }
@@ -232,11 +240,6 @@ async function miniGamePoint() {
   return game[0].points
 }
 
-
-let homeBtn = document.querySelector("#button1")
-homeBtn.addEventListener("click", evt => {
-  location.href = "home2.html"
-})
 
 function randomizeGame(){
   let game=['hangman','trivia'];
