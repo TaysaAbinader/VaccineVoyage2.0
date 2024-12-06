@@ -286,3 +286,4 @@ window.addEventListener('load', () => {
   updateVaccine()
   updateHints()}
 })*/
+//test
