@@ -1,3 +1,4 @@
+export {triviaQuestions}
 async function triviaQuestions() {
   try {
     const response = await fetch("https://the-trivia-api.com/v2/questions?limit=1&category=science&dificulty=easy");
@@ -9,10 +10,10 @@ catch (error) {
     console.error("Error fetching question")
   }
 }
-triviaQuestions().then(data => {
-  let question = data[0].question.text;
-  let rightanswer = data[0].correctAnswer;
-  let wronganswers = data[0].incorrectAnswers;
+await triviaQuestions().then(data => {
+  let question = data[0]["question"]["text"];
+  let rightanswer = data[0]["correctAnswer"];
+  let wronganswers = data[0]["incorrectAnswers"];
 
   const optionsList = [rightanswer, ...wronganswers].sort(() => Math.random() - 0.5); // Fixed line
 
@@ -28,7 +29,7 @@ triviaQuestions().then(data => {
       button.addEventListener("click", () => {
         if (answer === rightanswer) {
           alert("Congratulations! You got it right!");
-          trivia.close()
+
         } else {
           alert("Not yet! Try again!");
         }
@@ -37,6 +38,6 @@ triviaQuestions().then(data => {
     }
   }
 
-  const trivia = document.getElementById("gamedialog");
-  trivia.showModal();
+  //const trivia = document.getElementById("gamedialog");
+  //trivia.showModal();
 });
