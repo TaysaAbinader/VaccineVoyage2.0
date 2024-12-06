@@ -8,10 +8,6 @@ import random
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "http://localhost:63342"}})
 
-def point_level(game_info,level):
-    class_game = game_info[0]
-    point_difference = class_game.points_per_level(level)
-    return point_difference
 
 def randomize_countries(countries):
     new_list = countries
@@ -59,23 +55,6 @@ def game_start(disease_name):
 
 
 
-@app.route('/get_hint/<country>/<level>', endpoint='get_hint')
-def get_hint(country,level):
-    try:
-        this_level = game_info["countries"][level-1]
-        hint_list = this_level["hints"]
-        json_response = json.dumps(hint_list)
-        http_response = Response(json_response, status = 200,mimetype='application/json')
-        return http_response
-
-    except ValueError:
-        response = {
-            "response": "Invalid input",
-            "status": 400,
-        }
-        http_response = Response(response=json.dumps(response, indent=2), status=400, mimetype='application/json')
-        return http_response
-
 @app.route('/answer_is_correct/<country>/<guess>', endpoint='answer_is_correct')
 def answer_is_correct(country,guess):
     try:
@@ -117,28 +96,6 @@ def multiple_choice(country):
             for i in listed_countries1:
                 multiple_options.append(i)
         response = randomize_countries(multiple_options)
-        json_response = json.dumps(response)
-        http_response = Response(json_response, status = 200,mimetype='application/json')
-        return http_response
-    except ValueError:
-        response = {
-            "response": "Invalid input",
-            "status": 400,
-        }
-        http_response = Response(response=json.dumps(response, indent=2), status=400, mimetype='application/json')
-        return http_response
-
-@app.route('/cal_points/<game_info>/<operation>/<points_dif>')
-def point_operation(game_info,operation,points_dif):
-    try:
-        game_class = game_info[0]
-        if operation == "add":
-            game_class.points += points_dif
-        elif operation == "minus":
-            game_class.points -= points_dif
-        response = {
-            "points": game_class.points,
-        }
         json_response = json.dumps(response)
         http_response = Response(json_response, status = 200,mimetype='application/json')
         return http_response
