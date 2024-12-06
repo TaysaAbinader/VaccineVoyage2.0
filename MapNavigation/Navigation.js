@@ -1,10 +1,11 @@
+export {onCorrectCountryFound}
 mapboxgl.accessToken = 'pk.eyJ1IjoidGF5c2FhYmluYWRlciIsImEiOiJjbTJ4MTZ2dHMwMDQxMmpyNHFwMHlsaDlxIn0.Qhai-MjtxWtJ1Bg1G4rkYw';
 
 const map = new mapboxgl.Map({
   container: 'map',
   style: 'mapbox://styles/taysaabinader/cm434iwew00zh01sd4tmv0rxd',
-  center: [25.748151, 61.92411],
-  zoom: 1.5,
+  center: [10, 20],
+  zoom: 1.0,
   projection: 'mercator', // Keep the map flat
 });
 
@@ -49,24 +50,24 @@ map.on('style.load', () => {
   console.log('Map loaded successfully.');
 
   map.loadImage(
-    'https://i.postimg.cc/bNcXq4Dv/airplane-mode-on.png',
-    (error, image) => {
-      if (error) {
-        console.error('Error loading the image:', error);
-        return;
+      'https://i.postimg.cc/bNcXq4Dv/airplane-mode-on.png',
+      (error, image) => {
+        if (error) {
+          console.error('Error loading the image:', error);
+          return;
+        }
+        map.addImage('custom-marker', image);
       }
-      map.addImage('custom-marker', image);
-    }
   );
 
-  map.addSource('route', { type: 'geojson', data: route });
-  map.addSource('point', { type: 'geojson', data: point });
+  map.addSource('route', {type: 'geojson', data: route});
+  map.addSource('point', {type: 'geojson', data: point});
 
   map.addLayer({
     id: 'route',
     source: 'route',
     type: 'line',
-    paint: { 'line-width': 2, 'line-color': '#007cbf' },
+    paint: {'line-width': 2, 'line-color': '#007cbf'},
   });
 
   map.addLayer({
@@ -82,7 +83,7 @@ map.on('style.load', () => {
       'icon-ignore-placement': true,
     },
   });
-
+})
   function normalizeLongitude(lon) {
     return ((lon + 540) % 360) - 180; // Normalize to range [-180, 180]
   }
@@ -107,7 +108,7 @@ map.on('style.load', () => {
     const end = coordinates[counter + 1];
 
     if (!start || !end || start.length !== 2 || end.length !== 2) {
-      console.error('Invalid start or end coordinates:', { start, end });
+      console.error('Invalid start or end coordinates:', {start, end});
       running = false;
       resolve();
       return;
@@ -119,7 +120,8 @@ map.on('style.load', () => {
     try {
       calculatedBearing = turf.bearing(turf.point(start), turf.point(end)) || 0;
     } catch (error) {
-      console.warn('Error calculating bearing, defaulting to 0:', error, { start, end });
+      console.warn('Error calculating bearing, defaulting to 0:', error,
+          {start, end});
     }
 
     // Update the point's position and bearing
@@ -180,34 +182,43 @@ map.on('style.load', () => {
     }
 
     try {
-      const response = await fetch(`http://127.0.0.1:8000/fetchcoordinates/${country}`);
+      const response = await fetch(
+          `http://127.0.0.1:8000/fetchcoordinates/${country}`);
       if (!response.ok) {
         throw new Error(`HTTP error: ${response.status}`);
       }
 
       const result = await response.json();
-      if (!result || typeof result.longitude !== 'number' || typeof result.latitude !== 'number') {
-        throw new Error(`Invalid coordinates received from server: ${JSON.stringify(result)}`);
+      if (!result || typeof result.longitude !== 'number' ||
+          typeof result.latitude !== 'number') {
+        throw new Error(
+            `Invalid coordinates received from server: ${JSON.stringify(
+                result)}`);
       }
 
       planeMarkerDestination = [result.longitude, result.latitude];
 
       // Normalize longitudes for antimeridian handling
-      const adjustedOrigin = [normalizeLongitude(planeMarkerOrigin[0]), planeMarkerOrigin[1]];
-      const adjustedDestination = [normalizeLongitude(planeMarkerDestination[0]), planeMarkerDestination[1]];
+      const adjustedOrigin = [
+        normalizeLongitude(planeMarkerOrigin[0]),
+        planeMarkerOrigin[1]];
+      const adjustedDestination = [
+        normalizeLongitude(planeMarkerDestination[0]),
+        planeMarkerDestination[1]];
 
-      console.log('Adjusted Coordinates:', { adjustedOrigin, adjustedDestination });
+      console.log('Adjusted Coordinates:',
+          {adjustedOrigin, adjustedDestination});
 
       // Validate adjusted coordinates
       if (
-        !Array.isArray(adjustedOrigin) ||
-        adjustedOrigin.length !== 2 ||
-        isNaN(adjustedOrigin[0]) ||
-        isNaN(adjustedOrigin[1]) ||
-        !Array.isArray(adjustedDestination) ||
-        adjustedDestination.length !== 2 ||
-        isNaN(adjustedDestination[0]) ||
-        isNaN(adjustedDestination[1])
+          !Array.isArray(adjustedOrigin) ||
+          adjustedOrigin.length !== 2 ||
+          isNaN(adjustedOrigin[0]) ||
+          isNaN(adjustedOrigin[1]) ||
+          !Array.isArray(adjustedDestination) ||
+          adjustedDestination.length !== 2 ||
+          isNaN(adjustedDestination[0]) ||
+          isNaN(adjustedDestination[1])
       ) {
         throw new Error('Invalid adjusted coordinates');
       }
@@ -216,12 +227,15 @@ map.on('style.load', () => {
       let arc = [];
       try {
         console.log('Generating geodesic arc...');
-        arc = turf.greatCircle(turf.point(adjustedOrigin), turf.point(adjustedDestination), {
-          npoints: steps,
-        }).geometry.coordinates;
+        arc = turf.greatCircle(turf.point(adjustedOrigin),
+            turf.point(adjustedDestination), {
+              npoints: steps,
+            }).geometry.coordinates;
 
         // Validate the generated arc
-        if (!Array.isArray(arc) || arc.some(coord => coord.length !== 2 || isNaN(coord[0]) || isNaN(coord[1]))) {
+        if (!Array.isArray(arc) || arc.some(
+            coord => coord.length !== 2 || isNaN(coord[0]) ||
+                isNaN(coord[1]))) {
           throw new Error('Generated arc is invalid');
         }
       } catch (error) {
@@ -231,8 +245,10 @@ map.on('style.load', () => {
         // Fallback to straight-line interpolation
         arc = [];
         for (let i = 0; i <= steps; i++) {
-          const interpolatedLon = adjustedOrigin[0] + (i / steps) * (adjustedDestination[0] - adjustedOrigin[0]);
-          const interpolatedLat = adjustedOrigin[1] + (i / steps) * (adjustedDestination[1] - adjustedOrigin[1]);
+          const interpolatedLon = adjustedOrigin[0] + (i / steps) *
+              (adjustedDestination[0] - adjustedOrigin[0]);
+          const interpolatedLat = adjustedOrigin[1] + (i / steps) *
+              (adjustedDestination[1] - adjustedOrigin[1]);
           arc.push([interpolatedLon, interpolatedLat]);
         }
       }
@@ -263,6 +279,7 @@ map.on('style.load', () => {
     await navigate(countryName); // Ensure navigate function is called here
   }
 
+/*
   function gameLogic() {
     setTimeout(() => onCorrectCountryFound('Brazil'), 2000);
     setTimeout(() => onCorrectCountryFound('India'), 5000);
@@ -278,4 +295,4 @@ map.on('style.load', () => {
   }
 
   gameLogic();
-});
+});*/

@@ -1,6 +1,7 @@
-import {getData} from './session.js';
+import {getData,setData} from './session.js';
 import {Hangman, preGame} from '../../TriviaMinigame/hangman_game.js';
 import {triviaQuestions} from '../../TriviaMinigame/Minigame.js';
+import {onCorrectCountryFound} from "../../MapNavigation/Navigation.js"
 
 const port = 8000
 const game = getData();
@@ -47,6 +48,17 @@ minigameBtn.addEventListener("click", async function playMini() {
     })
   }
 })
+
+const quitBtn = document.querySelector("#quit")
+quitBtn.addEventListener("click", async evt => {
+  quit()
+})
+/*
+const back2HomeBtn = document.querySelector("#button1")
+back2HomeBtn.addEventListener("click", async evt => {
+  setData(game)
+  location.href = "../html/home2.html"
+})*/
 
 async function gameTrivia() {
   let mainGame = await triviaQuestions().then(data => {
@@ -110,14 +122,12 @@ async function guess() {
   const jsonAnswer  = await checkAnswer.json();
   alert(`${jsonAnswer.response}`);
   if(jsonAnswer.response === "Correct") {
+    await onCorrectCountryFound(currentCountry)
     game[0]["hint used"] = 2
-    game[0]["current level"] ++
+    game[0]["current level"] = game[0]["current level"] +1
+    currentLevel = game[0]["current level"]
+    console.log(game[0]["current level"])
     document.querySelector("#hintBox ul").innerHTML = ""
-
-    let nextHint = game[0]["countries"][currentLevel +1]["hints"][0]
-    let addHint = document.createElement("li")
-    addHint.innerHTML = nextHint
-    document.querySelector("#hintBox ul").appendChild(addHint)
 
     let tracker = document.querySelectorAll(".used")
     for (let i = 1; i < tracker.length; i++) {
@@ -126,11 +136,16 @@ async function guess() {
 
     let levelBlock = document.getElementsByClassName("level_count")
     let level = document.querySelector("#level")
-    level.innerHTML = `Level ${currentLevel+1}/7`
-    if (currentLevel !== 7){
+    level.innerHTML = `Level ${currentLevel}/7`
+    if (currentLevel <= 7){
       levelBlock[currentLevel-1].style.fill = "#8AC926"
+       let nextHint = game[0]["countries"][currentLevel -1]["hints"][0]
+      let addHint = document.createElement("li")
+      addHint.innerHTML = nextHint
+      document.querySelector("#hintBox ul").appendChild(addHint)
     }
     else {
+      levelBlock[currentLevel-1].style.fill = "#8AC926"
       alert("You win")
     }
       if (hintBtn.disabled === true) {
@@ -164,6 +179,7 @@ async function newHint(hint_used,level){
   if (game[0].points >= 0){
   if (hint_used <= 6) {
     let hint = country["hints"][hint_used-1]
+    document.querySelector("#hintBox ul").innerHTML = ""
     let addHint = document.createElement("li")
     addHint.innerHTML = hint
     document.querySelector("#hintBox ul").appendChild(addHint)
@@ -175,6 +191,7 @@ async function newHint(hint_used,level){
   }else {
     let hint = await fetch (`http://127.0.0.1:${port}/multiple_choice/${country.name}`)
     let jsonHint = await hint.json()
+    document.querySelector("#hintBox ul").innerHTML = ""
     console.log(jsonHint)
     let addHint = document.createElement("li")
     addHint.innerHTML = `The country is among: ${jsonHint}`
@@ -199,16 +216,18 @@ async function pointCalculation(operation,type) {
     rate = 15}
 
   if (operation === "plus") {
-    game[0].points = (Math.floor(game[0].points) + Math.floor(game[0]["current level"]*rate)).toString()
+    game[0].points = (Math.floor(game[0].points) + Math.floor(game[0]["current level"]*rate))
   }else if (operation === "minus") {
-    game[0].points = (Math.floor(game[0].points) - Math.floor(game[0]["current level"]*rate)).toString()
+    game[0].points = (Math.floor(game[0].points) - Math.floor(game[0]["current level"]*rate))
   }
   document.querySelector("#points").innerHTML = game[0].points
   return game[0].points
 }
 
 async function miniGamePoint() {
+  console.log(game[0].points)
   game[0].points = game[0].points +100
+  console.log(game[0].points)
   document.querySelector("#points").innerHTML = game[0].points
   return game[0].points
 }
@@ -243,3 +262,27 @@ function quit() {
   //document.getElementById("try-again").addEventListener("click", evt => {
   // location.href('home.js')})
 }
+/*
+function updateScore() {
+  const marker = document.querySelector("#points")
+  marker.innerHTML = game[0].points
+}
+function updateVaccine() {
+  const marker = document.querySelector(".level_count")
+  const style = window.getComputedStyle(marker)
+}
+function updateHints(currentLevel,hintUsed) {
+  const hintSpace = document.querySelector("#hintBox")
+  hintSpace.innerHTML = game[0]["countries"][currentLevel-1]["hints"][hintUsed-1]
+  const used = document.querySelector(".used")
+  const hintStyle = window.getComputedStyle(used)
+  const levelCount = document.querySelector("#level")
+  levelCount.innerHTMl = `Level ${currentLevel}/7`
+}
+window.addEventListener('load', () => {
+  const gameData = getData();
+  if (gameData) {
+  updateScore()
+  updateVaccine()
+  updateHints()}
+})*/
