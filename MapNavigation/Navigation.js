@@ -278,6 +278,10 @@ map.on('style.load', () => {
 
   async function onCorrectCountryFound(countryName) {
     console.log(`Player found the correct country: ${countryName}`);
+
+    const audioPlayer = document.getElementById('audio');
+    audioPlayer.play();
+
     await navigate(countryName); // Ensure navigate function is called here
   }
 
