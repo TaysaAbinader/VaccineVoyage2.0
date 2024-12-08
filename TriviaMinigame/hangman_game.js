@@ -74,6 +74,7 @@ async function Hangman(game,currentPoint) {
       }
       let errorTimes = document.createElement('p');
       errorTimes.innerText = `You have used ${error.toString()}/6 attempts`;
+
       document.querySelector("#alphabet").appendChild(errorTimes)
       let buttons = document.querySelectorAll("#alphabet button");
       buttons.forEach(button => {
@@ -91,6 +92,7 @@ async function Hangman(game,currentPoint) {
             error++
             errorTimes.innerText = `You have used ${error.toString()}/6 attempts`
 
+
           }
           if (JSON.stringify(game[0]) === JSON.stringify(game[1]) && error <
               6) {
@@ -101,6 +103,7 @@ async function Hangman(game,currentPoint) {
           } else if (JSON.stringify(game[0]) !== JSON.stringify(game[1]) &&
               error >= 6) {
             alert(`You lost, the answer is ${game[1]}`)
+
             dialogHangMan.innerHTML = ""
             resolve("lost")
             dialogHangMan.close()
