@@ -278,10 +278,13 @@ function quit() {
   retrybtn.innerHTML = "Retry"
   gameOver.appendChild(heading)
   gameOver.appendChild(retrybtn)
+
   saveGame(visitedCountry)
 
   retrybtn.addEventListener("click", evt => {
     location.href = "../html/home.html"
   })
   gameOver.showModal()
+
 }
+

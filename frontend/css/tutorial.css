@@ -41,7 +41,6 @@ main h3{
     color: #8AC926;
     margin-bottom: -4rem;
 
-
 }
 
 h2{
@@ -79,6 +78,7 @@ article {
     box-sizing: border-box;
     border-radius: 30px;
 }
+
 
 button{
     font-size: 1.75rem;
