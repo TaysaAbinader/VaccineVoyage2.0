@@ -1,7 +1,10 @@
 import json
 
+
 from databaseconnection import connection
 from flask import Flask,  Response, request
+
+
 from flask_cors import CORS
 from classes.class_game import Game
 import random
@@ -120,6 +123,7 @@ def fetchcoordinates (country):
                 "latitude": row[0],
                 "longitude": row[1]
             }
+
         json_response = json.dumps(response)
         http_response = Response(json_response, status= 200, mimetype="application/json")
         return http_response
@@ -150,7 +154,6 @@ def insert_session():
         }
         http_response = Response(response=json.dumps(response, indent=2), status=400, mimetype='application/json')
         return http_response
-
 
 @app.errorhandler(404)
 def not_found(error):

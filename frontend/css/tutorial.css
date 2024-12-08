@@ -34,12 +34,12 @@ main{
     margin: auto;
     text-align: center;
     border-radius: 20px;
+
 }
 main h3{
     font-size: 35px;
     color: #8AC926;
     margin-bottom: -4rem;
-
 
 }
 
@@ -64,9 +64,11 @@ section {
     gap: 20px;
 
 }
+
 section:hover{
     cursor: initial;
 }
+
 article {
     background-color: #FFCA3A;
     width: 23%;
@@ -76,6 +78,7 @@ article {
     box-sizing: border-box;
     border-radius: 30px;
 }
+
 
 button{
     font-size: 1.75rem;
@@ -88,3 +91,4 @@ button{
     margin: 1rem;
     cursor: pointer;
 }
+
