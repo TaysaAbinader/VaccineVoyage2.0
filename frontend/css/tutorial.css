@@ -34,7 +34,7 @@ main{
     margin: auto;
     text-align: center;
     border-radius: 20px;
-    cursor: pointer;
+
 }
 main h3{
     font-size: 35px;
@@ -64,6 +64,11 @@ section {
     gap: 20px;
 
 }
+
+section:hover{
+    cursor: initial;
+}
+
 article {
     background-color: #FFCA3A;
     width: 23%;
@@ -74,4 +79,16 @@ article {
     border-radius: 30px;
 }
 
+
+button{
+    font-size: 1.75rem;
+    font-family: Sour Gummy, sans-serif;
+    background-color: #FF6B6B;
+    color: white;
+    padding: 1rem 2rem;
+    border: medium outset black;
+    border-radius: 10px;
+    margin: 1rem;
+    cursor: pointer;
+}
 

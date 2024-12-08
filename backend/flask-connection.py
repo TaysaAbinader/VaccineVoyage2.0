@@ -1,6 +1,10 @@
 import json
+
+
 from databaseconnection import connection
-from flask import Flask,  Response
+from flask import Flask,  Response, request
+
+
 from flask_cors import CORS
 from classes.class_game import Game
 import random
@@ -119,8 +123,36 @@ def fetchcoordinates (country):
                 "latitude": row[0],
                 "longitude": row[1]
             }
+
         json_response = json.dumps(response)
         http_response = Response(json_response, status= 200, mimetype="application/json")
+        return http_response
+
+@app.route('/save_game', methods = ['POST'])
+def insert_session():
+    data = request.get_json()
+    disease_name = data.get('disease_name')
+    visited_countries = data.get('visited_countries')
+    current_level = data.get('current_level')
+
+    try:
+
+        sql_session = "INSERT INTO disease(disease_name, visited_countries, level) VALUES (%s, (select country_id from countries where name = %s), %s);"
+        cursor_session = connection.cursor()
+        cursor_session.execute(sql_session, (disease_name, visited_countries, current_level))
+        response = {
+            "message" : "Successfully saved",
+            "status": 200
+        }
+        json_response = json.dumps(response)
+        http_response = Response(json_response, status = 200, mimetype='application/json')
+        return http_response
+    except ValueError:
+        response = {
+            "response": "Invalid input",
+            "status": 400,
+        }
+        http_response = Response(response=json.dumps(response, indent=2), status=400, mimetype='application/json')
         return http_response
 
 @app.errorhandler(404)

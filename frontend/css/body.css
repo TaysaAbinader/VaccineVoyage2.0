@@ -207,6 +207,11 @@ dialog::backdrop {
         align-items: center;
     }
 
+    p {
+        margin-top: 5rem;
+    }
+
+
 
 
 
