@@ -206,8 +206,8 @@ dialog::backdrop {
         justify-content: center;
         align-items: center;
     }
+   p {
 
-    p {
         margin-top: 5rem;
     }
 

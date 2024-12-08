@@ -155,6 +155,7 @@ def insert_session():
         http_response = Response(response=json.dumps(response, indent=2), status=400, mimetype='application/json')
         return http_response
 
+
 @app.errorhandler(404)
 def not_found(error):
     response = {
