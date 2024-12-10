@@ -167,5 +167,6 @@ def not_found(error):
     return http_response
 
 if __name__ == '__main__':
-    app.run(host='127.0.0.1', port=8000, debug=True)
+    app.run(host='127.0.0.1', port=5002, debug=True)
+    #if the port is occupied, change also the port variable in home.js, body.js, Navigation.js
 

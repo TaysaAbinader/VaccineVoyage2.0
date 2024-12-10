@@ -4,24 +4,24 @@ import {triviaQuestions} from '../../TriviaMinigame/Minigame.js';
 import {onCorrectCountryFound} from "../../MapNavigation/Navigation.js"
 
 
-
-const port = 8000
+//intializing variables
+const port = 5002
 const game = getData();
 game[0]["hint used"] = 1
 console.log(game)
 let virusName = document.getElementById('virus_name');
 virusName.innerHTML = game[0]["disease name"];
 const firstCountry = game[0]["countries"][0]
-
 let visitedCountry = []
-
 let hint = firstCountry["hints"][0]
+
+//hint box
 let addHint = document.createElement("li")
 addHint.innerHTML = hint
 document.querySelector("#hintBox ul").appendChild(addHint)
 game[0]["hint used"] = 2
 
-
+//button event listeners
 const guessBtn = document.querySelector("#button4")
 guessBtn.addEventListener("click", evt => {
   guess()
@@ -33,6 +33,12 @@ hintBtn.addEventListener("click", evt => {
   newHint(game[0]["hint used"],game[0]["current level"])
 })
 
+const quitBtn = document.querySelector("#quit")
+quitBtn.addEventListener("click", async evt => {
+  quit()
+})
+
+//minigames
 const minigameBtn = document.querySelector("#button3")
 let word_list = ["morning","geography","apple", "oxygen", "penguin", "rainbow", "whisper", "vampire", "hunter", "christmas", "xelophone"]
 
@@ -56,12 +62,8 @@ minigameBtn.addEventListener("click", async function playMini() {
   }
 })
 
-const quitBtn = document.querySelector("#quit")
-quitBtn.addEventListener("click", async evt => {
-  quit()
-})
 
-
+//all functions
 async function gameTrivia() {
   let mainGame = await triviaQuestions().then(data => {
     let dialogTrivia = document.querySelector("#trivia");
@@ -116,7 +118,7 @@ async function gameHangman(word_list,currentPoint) {
   return [word_list, mainGamePoint]
 }
 
-
+//guess function to collect player's guess then compare using backend function answer_is_correct
 async function guess() {
   let hint_used = game[0]["hint used"]
   let guess = prompt("What's your guess?")

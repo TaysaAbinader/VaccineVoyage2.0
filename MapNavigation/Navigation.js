@@ -1,4 +1,8 @@
 export {onCorrectCountryFound}
+
+//intializing variables
+const port = 5002 //change this if the current port is occupied
+
 mapboxgl.accessToken = 'pk.eyJ1IjoidGF5c2FhYmluYWRlciIsImEiOiJjbTJ4MTZ2dHMwMDQxMmpyNHFwMHlsaDlxIn0.Qhai-MjtxWtJ1Bg1G4rkYw';
 
 const map = new mapboxgl.Map({
@@ -185,7 +189,7 @@ map.on('style.load', () => {
 
     try {
       const response = await fetch(
-          `http://127.0.0.1:8000/fetchcoordinates/${country}`);
+          `http://127.0.0.1:${port}/fetchcoordinates/${country}`);
       if (!response.ok) {
         throw new Error(`HTTP error: ${response.status}`);
       }
