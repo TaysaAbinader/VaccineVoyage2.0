@@ -1,5 +1,5 @@
 import {setData} from './session.js';
-let port = 8000
+let port = 5002
 
 document.querySelector("#start_button").addEventListener("click", async function() {
   let name = prompt("Welcome, what's the name of the virus?")
