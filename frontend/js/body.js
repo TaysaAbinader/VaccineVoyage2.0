@@ -5,7 +5,7 @@ import {onCorrectCountryFound} from "../../MapNavigation/Navigation.js"
 
 
 //intializing variables
-const port = 5002
+const port = 5002 //change this if the current port is occupied
 const game = getData();
 game[0]["hint used"] = 1
 console.log(game)
