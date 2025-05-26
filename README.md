@@ -64,6 +64,7 @@ FLUSH PRIVILEGES;
 SOURCE <saved-repository-path>/VaccineVoyage2.0/database-dumps/vaccines_dump.sql
 ```
 **Note:** Sometimes the path may not work. If this happens, simply copy the vaccines_dumps.sql to the Download folder of your computer, then replace the command above with the new path. 
+
 6. Exit from the database console
 ```bash
 exit
