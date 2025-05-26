@@ -18,6 +18,83 @@ For more details, [see Vaccine Voyage 1.0 gameplay](https://github.com/anh-tq-hu
 [See the demo video here](https://youtu.be/gR3mfJVxawc)
 [![Demo video thumbnail](https://github.com/user-attachments/assets/31284be9-a03f-4c72-b644-73d1561b3f5b)](https://youtu.be/gR3mfJVxawc)
 
+## How to run
+### Prerequisites
+- **Database**: To run the backend, you will need
+  - MariaDB or MySQL Server: Ensure you have a running instance of either MariaDB or MySQL on your local machine.
+  - Database Client: Access to a command-line client (like mysql or mariadb) or a GUI tool (like DBeaver, MySQL Workbench, phpMyAdmin, etc.) to interact with your database server.
+- **Python**: Make sure that you have Python installed, if not, you can install it from here [Python.org](https://www.python.org/downloads/)
+- **Web browser**: Any modern browser, e.g Chrome, Firefox, Microsoft Edge, etc.
+### Get started
+#### Clone repository
+1.Navigate to the folder into which you would like to save the repository
+```bash
+cd <your-path>
+```
+2. Clone the repository:
+```bash
+git clone https://github.com/TaysaAbinader/VaccineVoyage2.0.git
+```
+#### Prepare for database
+1. Log in to your database server
+Open your terminal and enter the following command to log in to your database server
+```bash
+mysql -u root -p
+#You will be asked to enter password
+```
+**Note:** If you use MariaDB, use the command ```mariadb -u root -p``` instead
+
+2. Create database
+```bash
+CREATE DATABASE vaccine_voyage;
+```
+3. Select the database
+```bash
+USE vaccine_voyage
+```
+4. Create user
+```bash
+#Please keep 'newuser', 'password' as it is, no need to change. As this is a school project, security matter was not considered as top priority.
+CREATE USER 'newuser'@'localhost' IDENTIFIED BY 'password'
+GRANT ALL PRIVILEGES ON vaccine_voyage.* TO 'newuser'@'localhost';
+FLUSH PRIVILEGES;
+```
+5. Clone the content of the game's database into the newly created vaccine_voyage
+```bash
+SOURCE <saved-repository-path>/VaccineVoyage2.0/database-dumps/vaccines_dump.sql
+```
+**Note:** Sometimes the path may not work. If this happens, simply copy the vaccines_dumps.sql to the Download folder of your computer, then replace the command above with the new path. 
+6. Exit from the database console
+```bash
+exit
+```
+#### Run the backend
+1. Move to the backend folder
+```bash
+cd <saved-repository-path>/VaccineVoyage2.0/backend
+```
+2. Install required libraries
+```bash
+pip install Flask Flask-Cors mysql-connector-python
+```
+3. Run backend
+```bash
+python flask-conenction.py
+```
+
+#### Run the front end
+1. Navigate to the html folder
+```bash
+cd <saved-repository-path>//VaccineVoyage2.0/frontend/html
+```
+2. Right click ```home.html``` , choose **Open with**, choose the broswer to open (Chrome, Firefox, Edge, etc)
+
+## Troubleshoot 
+In case of error, it may be that the port is busy. In that case, do the following:
+- Change the port on line 170 of [flask-connection.py](https://github.com/TaysaAbinader/VaccineVoyage2.0/blob/main/backend/flask-connection.py)
+- Change the port on line 8 of [body.js](https://github.com/TaysaAbinader/VaccineVoyage2.0/blob/main/frontend/js/body.js)
+- Change the port on line 2 of [home.js](https://github.com/TaysaAbinader/VaccineVoyage2.0/blob/main/frontend/js/home.js)
+- Change the port on line 2 of [tutorial.js](https://github.com/TaysaAbinader/VaccineVoyage2.0/blob/main/frontend/js/tutorial.js)
 ## Acknowledgement
 The project utilizes the following resources:
 - [Trivia question API](https://the-trivia-api.com/) - for the trivia question minigame
