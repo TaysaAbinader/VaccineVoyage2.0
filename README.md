@@ -1,4 +1,4 @@
-# Introduction: Vaccine Voyage 2
+# Introduction: Vaccine Voyage 2.0
 This is the continued development of the text-based game [Vaccine Voyage 1.0](https://github.com/anh-tq-huynh/Vaccine_Voyage1.0-Text-based-game-/tree/main_game_update2.0) to develop the previous text-based game into a web-based version, with user interface and web functionalities. This requires the combined use of Python for backend, JavaScript, HTML, CSS for frontend.
 
 The gameplay is generally the same as version 1.0, however, in version 2.0, the player can choose to play minigame whenever they feel like to get bonus points, extending gameplay time. In other words, the game is made easier with the purpose of education rather than winning or losing. The more you stay, the more you learn about different countries and general knowledge.
